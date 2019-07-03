@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>图书管理系统</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="/static/assets/materialize/css/materialize.min.css"
+          media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="/static/assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- Morris Chart Styles-->
+    <link href="/static/assets/js/morris/morris-0.4.3.min.css"
+          rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="/static/assets/css/custom-styles.css" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans'
+          rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet"
+          href="/static/assets/js/Lightweight-Chart/cssCharts.css">
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle waves-effect waves-dark"
+                    data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
+                    class="large material-icons">track_changes</i> <strong>target</strong></a>
+
+            <div id="sideNav" href=""><i class="material-icons dp48">toc</i>
+            </div>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li><a class="dropdown-button waves-effect waves-dark" href="#!"
+                   data-activates="dropdown2"><i
+                    class="fa fa-envelope fa-fw"></i> <i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-button waves-effect waves-dark"
+                   href="/managebooks/login"
+                   data-activates="dropdown1"><i class="fa fa-user fa-fw"></i>
+                <b th:text="${user.userName}+',欢迎您'">请登录</b> <i
+                        class="material-icons right">arrow_drop_down</i></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="/managebooks/login"><i class="fa fa-sign-out fa-fw"></i>
+            Logout</a>
+        </li>
+    </ul>
+    <ul id="dropdown2" class="dropdown-content dropdown-tasks w250 taskList">
+        <li>
+            <a
+                    href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b"
+                    class="a_post">
+                <div>
+                    <strong>YuXingZh</strong>
+                    <span class="pull-right text-muted">
+                        <em>Today</em>
+                    </span>
+                </div>
+                <p>欢迎使用全新的 OneDrive！...</p>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a
+                    href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b"
+                    class="a_post">
+                <div>
+                    <strong>YuXingZh</strong>
+                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                </div>
+                <p>欢迎来到墨刀！聪明的您选择了墨刀来提高工作效率！...</p>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b"
+               class="a_post">
+                <div>
+                    <strong>YuXingZh</strong>
+                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                </div>
+                <p>验证你的电子邮件地址...</p>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a class="text-center a_post"
+               href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b">
+                <strong>Read All Messages</strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+
+                <li>
+                    <a class="active-menu waves-effect waves-dark"
+                       href="/managebooks/user_page"><i
+                            class="fa fa-dashboard"></i> 首页
+                    </a>
+                </li>
+                <li>
+                    <a href="/managebooks/user_booklist"
+                       class="waves-effect waves-dark"><i
+                            class="fa fa-qrcode"></i> 图书预约</a>
+                </li>
+
+                <li>
+                    <a href="/managebooks/user_reservation"
+                       class="waves-effect waves-dark"><i
+                            class="fa fa-edit"></i> 预约记录 </a>
+                </li>
+
+
+                <li>
+                    <a href="/managebooks/user_borrow"
+                       class="waves-effect waves-dark"><i
+                            class="fa fa-desktop"></i> 借阅记录</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                欢迎您
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">Home</li>
+            </ol>
+
+        </div>
+        <div id="page-inner">
+
+            <div class="dashboard-cards">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a href="#" style="text-decoration:none">
+                            <div class="card horizontal cardIcon waves-effect waves-dark">
+                                <div class="card-image red">
+                                    <i class="material-icons dp48">import_export</i>
+                                </div>
+                                <div class="card-stacked red">
+                                    <div class="card-content">
+                                        <h3>84,198</h3>
+                                    </div>
+                                    <div class="card-action">
+                                        <strong>首页</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a href="/managebooks/user_booklist"
+                           style="text-decoration:none">
+                            <div class="card horizontal cardIcon waves-effect waves-dark">
+                                <div class="card-image orange">
+                                    <i class="material-icons dp48">shopping_cart</i>
+                                </div>
+                                <div class="card-stacked orange">
+                                    <div class="card-content">
+                                        <h3>36,540</h3>
+                                    </div>
+                                    <div class="card-action">
+                                        <strong>图书预约</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a href="/managebooks/user_reservation"
+                           style="text-decoration:none">
+                            <div class="card horizontal cardIcon waves-effect waves-dark">
+                                <div class="card-image blue">
+                                    <i class="material-icons dp48">equalizer</i>
+                                </div>
+                                <div class="card-stacked blue">
+                                    <div class="card-content">
+                                        <h3>24,225</h3>
+                                    </div>
+                                    <div class="card-action">
+                                        <strong>预约记录</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <a href="/managebooks/user_borrow"
+                           style="text-decoration:none">
+                            <div class="card horizontal cardIcon waves-effect waves-dark">
+                                <div class="card-image green">
+                                    <i class="material-icons dp48">supervisor_account</i>
+                                </div>
+                                <div class="card-stacked green">
+                                    <div class="card-content">
+                                        <h3>88,658</h3>
+                                    </div>
+                                    <div class="card-action">
+                                        <strong>借阅记录</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-action">
+                            <b>图书总览</b>
+                        </div>
+                        <div class="card-image">
+                            <div class="collection">
+                                <a href="#!" class="collection-item">剩余图书总量<span
+                                        class="new badge red"
+                                        data-badge-caption="red"
+                                        th:text="${surplus}">4</span></a>
+                                <a href="#!" class="collection-item">已预约图书<span
+                                        class="new badge blue"
+                                        data-badge-caption="blue"
+                                        th:text="${bookedBooks}">4</span></a>
+                                <a href="#!" class="collection-item"><span
+                                        class="badge"
+                                        th:text="${unReturnedBooks}">1</span>尚未还书</a>
+                                <a href="#!" class="collection-item"><span
+                                        class="new badge">4</span>暂时未定</a>
+                                <a href="#!" class="collection-item">暂时未定<span
+                                        class="new badge blue"
+                                        data-badge-caption="blue">4</span></a>
+                                <a href="#!" class="collection-item"><span
+                                        class="badge">14</span>暂时未定</a>
+                                <a href="#!" class="collection-item">
+                                    暂时未定<span class="new badge"
+                                              data-badge-caption="custom caption">4</span></a>
+                                <a href="#!" class="collection-item">
+                                    暂时未定<span class="badge"
+                                              data-badge-caption="custom caption">4</span></a>
+                                <a href="#!" class="collection-item"><span
+                                        class="new badge">4</span>暂时未定</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-action">
+                            <b>最近预约</b>
+                        </div>
+                        <div class="card-image">
+                            <ul class="collection"
+                                th:each="res: ${recentBorrow}">
+                                <li class="collection-item avatar">
+                                    <i class="material-icons circle green">track_changes</i>
+                                    <span class="title"
+                                          th:text="${res.bname}">Title
+                                    </span>
+                                    <p th:text="${#dates.format(res.deadline, 'yyyy-MM-dd')}">
+                                        First Line <br>
+                                    </p>
+                                    <p>
+                                        请及时归还
+                                    </p>
+                                    <a href="#!" class="secondary-content"><i
+                                            class="material-icons">grade</i></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="fixed-action-btn horizontal click-to-toggle">
+                <a class="btn-floating btn-large red">
+                    <i class="material-icons">资料查询</i>
+                </a>
+                <ul>
+                    <li><a class="btn-floating red"
+                           href="https://www.csdn.net/" target="_blank"><i
+                            class="material-icons">track_changes</i></a>
+                    </li>
+                    <li><a class="btn-floating yellow darken-1"
+                           href="http://fontawesome.dashgame.com/" target="_blank"><i
+                            class="material-icons">format_quote</i></a></li>
+                    <li><a class="btn-floating green"
+                           href="https://cn.bing.com/" target="_blank"><i
+                            class="material-icons">publish</i></a>
+                    </li>
+                    <li><a class="btn-floating blue"
+                           href="https://www.cnblogs.com/" target="_blank"><i
+                            class="material-icons">attach_file</i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="/static/assets/js/jquery-1.10.2.js"></script>
+
+<!-- Bootstrap Js -->
+<script src="/static/assets/js/bootstrap.min.js"></script>
+
+<script src="/static/assets/materialize/js/materialize.min.js"></script>
+
+<!-- Metis Menu Js -->
+<script src="/static/assets/js/jquery.metisMenu.js"></script>
+<!-- Morris Chart Js -->
+<script src="/static/assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="/static/assets/js/morris/morris.js"></script>
+
+
+<script src="/static/assets/js/easypiechart.js"></script>
+<script src="/static/assets/js/easypiechart-data.js"></script>
+
+<script src="/static/assets/js/Lightweight-Chart/jquery.chart.js"></script>
+
+<!-- Custom Js -->
+<script src="/static/assets/js/custom-scripts.js"></script>
+
+<!--<script>-->
+    <!--$(".a_post").on("click",function(event){-->
+        <!--event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)-->
+        <!--$.ajax({-->
+            <!--type: "POST",-->
+            <!--url: "url地址",-->
+            <!--contentType:"application/json",-->
+            <!--data: JSON.stringify({param1:param1,param2:param2}),//参数列表-->
+            <!--dataType:"json",-->
+            <!--success: function(result){-->
+                <!--//请求正确之后的操作-->
+            <!--},-->
+            <!--error: function(result){-->
+                <!--//请求失败之后的操作-->
+            <!--}-->
+        <!--});-->
+    <!--});-->
+<!--</script>-->
+</body>
+
+</html>

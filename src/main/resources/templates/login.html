@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>后台管理系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/assets/css/signin.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" action="/managebooks/detail">
+        <img src="/static/assets/img/springboot.jpg" alt="leader" height="300"
+             width="300">
+        <h1 class="h3 mb-3 font-weight-normal" th:text="#{login.tip}">Please sign in</h1>
+        <label class="sr-only" th:text="#{login.username}">Username</label>
+        <input type="text"  name="username" class="form-control" placeholder="Username" th:placeholder="#{login.username}" required="" autofocus="">
+        <label class="sr-only" th:text="#{login.password}">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" th:placeholder="#{login.password}" required="">
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"/> [[#{login.remember}]]
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">Sign in</button>
+        <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+        <a class="btn btn-sm" th:href="@{/managebooks/login(l='zh_CN')}">中文</a>
+        <a class="btn btn-sm" th:href="@{/managebooks/login(l='en_US')}">English</a>
+    </form>
+</div>
+
+
+</body>
+</html>

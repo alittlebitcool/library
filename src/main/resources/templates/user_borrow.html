@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>图书管理系统</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="/static/assets/materialize/css/materialize.min.css"
+          media="screen,projection"/>
+    <!-- Bootstrap Styles-->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet"/>
+    <!-- FontAwesome Styles-->
+    <link href="/static/assets/css/font-awesome.css" rel="stylesheet"/>
+    <!-- Morris Chart Styles-->
+    <link href="/static/assets/js/morris/morris-0.4.3.min.css"
+          rel="stylesheet"/>
+    <!-- Custom Styles-->
+    <link href="/static/assets/css/custom-styles.css" rel="stylesheet"/>
+    <!-- Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans'
+          rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet"
+          href="/static/assets/js/Lightweight-Chart/cssCharts.css">
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle waves-effect waves-dark"
+                    data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand waves-effect waves-dark" href="index.html"><i
+                    class="large material-icons">track_changes</i> <strong>target</strong></a>
+
+            <div id="sideNav" href=""><i class="material-icons dp48">toc</i>
+            </div>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li><a class="dropdown-button waves-effect waves-dark" href="#!"
+                   data-activates="dropdown2"><i
+                    class="fa fa-envelope fa-fw"></i> <i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-button waves-effect waves-dark" href="/managebooks/login"
+                   data-activates="dropdown1"><i class="fa fa-user fa-fw"></i>
+                <b th:text="${user.userName}+',欢迎您'">请登录</b> <i
+                        class="material-icons right">arrow_drop_down</i></a>
+            </li>
+        </ul>
+    </nav>
+    <!-- Dropdown Structure -->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="/managebooks/login"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        </li>
+    </ul>
+    <ul id="dropdown2" class="dropdown-content dropdown-tasks w250 taskList">
+        <li>
+            <a
+                    href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b"
+                    class="a_post">
+                <div>
+                    <strong>YuXingZh</strong>
+                    <span class="pull-right text-muted">
+                        <em>Today</em>
+                    </span>
+                </div>
+                <p>欢迎使用全新的 OneDrive！...</p>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a
+                    href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b"
+                    class="a_post">
+                <div>
+                    <strong>YuXingZh</strong>
+                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                </div>
+                <p>欢迎来到墨刀！聪明的您选择了墨刀来提高工作效率！...</p>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b"
+               class="a_post">
+                <div>
+                    <strong>YuXingZh</strong>
+                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                </div>
+                <p>验证你的电子邮件地址...</p>
+            </a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a class="text-center a_post"
+               href="https://mail.qq.com/cgi-bin/frame_html?sid=ft2SsyFD9zDLY0cc&r=035a6e976189dff410fe64fa4f78058b">
+                <strong>Read All Messages</strong>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </li>
+    </ul>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+
+                <li>
+                    <a class="waves-effect waves-dark"
+                       href="/managebooks/user_page"><i
+                            class="fa fa-dashboard"></i> 首页
+                    </a>
+                </li>
+                <li>
+                    <a href="/managebooks/user_booklist"
+                       class="waves-effect waves-dark"><i
+                            class="fa fa-qrcode"></i> 图书预约</a>
+                </li>
+                <li>
+                    <a href="/managebooks/user_reservation"
+                       class="waves-effect waves-dark"><i
+                            class="fa fa-desktop"></i> 预约记录 </a>
+                </li>
+                <li>
+                    <a href="/managebooks/user_borrow"
+                       class="active-menu waves-effect waves-dark"><i
+                            class="fa fa-table"></i> 借阅记录</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                借阅记录
+            </h1>
+            <ol class="breadcrumb">
+                <li><i href="#">Tables</i></li>
+            </ol>
+
+        </div>
+
+        <div id="page-inner">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="card">
+                        <div class="card-action">
+                            Advanced Tables
+                        </div>
+                        <div class="card-content">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover"
+                                       id="dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>借阅号</th>
+                                        <th>书名</th>
+                                        <th>借阅日期</th>
+                                        <th>截止日期</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="res: ${list}">
+                                        <td th:text="${res.borrowId}"></td>
+                                        <td th:text="${res.bname}"></td>
+                                        <td th:text="${#dates.format(res.btime, 'yyyy-MM-dd')}"></td>
+                                        <td th:text="${#dates.format(res.deadline, 'yyyy-MM-dd')}"></td>
+                                        <td th:if="${res.rtime==null}"><a
+                                                th:href="'/managebooks/'+${res.borrowId}+'/return'">
+                                            <button type="button"
+                                                    class="btn btn-primary">还书
+                                            </button>
+                                        </a></td>
+                                        <td th:if="${res.rtime!=null}">
+                                            <button type="button"
+                                                    class="btn btn-warn disabled">
+                                                已归还
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--End Advanced Tables -->
+                </div>
+            </div>
+
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+</div>
+
+<!-- jQuery Js -->
+<script src="/static/assets/js/jquery-1.10.2.js"></script>
+
+<!-- Bootstrap Js -->
+<script src="/static/assets/js/bootstrap.min.js"></script>
+
+<script src="/static/assets/materialize/js/materialize.min.js"></script>
+
+<!-- Metis Menu Js -->
+<script src="/static/assets/js/jquery.metisMenu.js"></script>
+<!-- Morris Chart Js -->
+<script src="/static/assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="/static/assets/js/morris/morris.js"></script>
+
+
+<script src="/static/assets/js/easypiechart.js"></script>
+<script src="/static/assets/js/easypiechart-data.js"></script>
+
+<script src="/static/assets/js/Lightweight-Chart/jquery.chart.js"></script>
+<!-- DATA TABLE SCRIPTS -->
+<script src="/static/assets/js/dataTables/jquery.dataTables.js"></script>
+<script src="/static/assets/js/dataTables/dataTables.bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dataTables-example').dataTable();
+    });
+</script>
+<!-- Custom Js -->
+<script src="/static/assets/js/custom-scripts.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zyx.library.dao.AdminMapper">
+    <!--借阅列表-->
+    <select id="getAdminList" resultType="BookList">
+        select *
+        from booklist
+    </select>
+
+    <!--添加图书-->
+    <!--存储过程-->
+    <!--
+        CREATE PROCEDURE proce (
+        	IN bname1 CHAR (100),
+        	IN isbn1 CHAR (100),
+        	IN publisher1 CHAR (100),
+        	IN writer1 CHAR (100),
+        	IN number1 CHAR (100),
+        	IN operator1 CHAR (100)
+        )
+        BEGIN
+        	INSERT INTO booklist (
+        		bname,
+        		ISBN,
+        		publisher,
+        		writer,
+        		ptime,
+        		number,
+        		operator
+        	)
+        VALUES
+        	(
+        		bname1,
+        		ISBN1,
+        		publisher1,
+        		writer1,
+        		ptime1,
+        		number1,
+        		operator1
+        	);
+
+        INSERT INTO book (
+        	ISBN,
+        	location,
+        	state,
+        	operator
+        )
+        VALUES
+        	(
+        		isbn1,
+        		'楼下小卖铺',
+        		0,
+        		6
+        	);
+        END
+    -->
+    <!--insert into booklist(bname,ISBN,publisher,writer,ptime,number,operator)-->
+    <!--values (#{bookList.bname},-->
+    <!--#{bookList.isbn},-->
+    <!--#{bookList.publisher},-->
+    <!--#{bookList.writer},-->
+    <!--#{bookList.ptime},-->
+    <!--#{bookList.number},-->
+    <!--#{bookList.operator});-->
+
+    <!--insert into book(ISBN,location,state,operator)-->
+    <!--VALUES(#{ISBN},'楼下小卖铺',0,6)-->
+    <insert id="addBook">
+          call proce(#{bookList.bname},
+                #{bookList.isbn},
+                #{bookList.publisher},
+                #{bookList.writer},
+                #{bookList.ptime},
+                #{bookList.number},
+                #{bookList.operator});
+    </insert>
+
+    <!--查看所有预约-->
+    <select id="showReservation" resultType="ReservationDetail">
+        select *
+        from reservation_detail
+        where deadline is null
+    </select>
+
+    <!--同意预约-->
+    <update id="manage">
+        UPDATE reservation
+        SET deadline =
+                    DATE_ADD(NOW(), INTERVAL 2 MONTH)
+        WHERE
+                reservation_id = #{reservationId}
+    </update>
+
+    <!--查看借阅情况-->
+    <select id="showBorrowList" resultType="BorrowDetail">
+        select *
+        from borrow_detail
+    </select>
+</mapper>

@@ -1,4 +1,4 @@
 package com.zyx.library.entity;
 
-public class Box {
+public class Chair {
 }

@@ -22,4 +22,7 @@ public interface AdminService {
     List<ReservationDetail> showReservation();
 
     List<BorrowDetail> showBorrowList();
+
+    //TODO
+
 }

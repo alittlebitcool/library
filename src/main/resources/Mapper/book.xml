@@ -6,7 +6,7 @@
 <mapper namespace="com.zyx.library.dao.BookMapper">
 
     <!--借阅列表-->
-    <select id="getList" resultType="BookList">
+    <select id="getList" resultType="booklist">
         select *
         from booklist
         where number > 0;

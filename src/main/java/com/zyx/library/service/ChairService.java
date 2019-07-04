@@ -1,6 +1,6 @@
 package com.zyx.library.service;
 
-import com.zyx.library.pojo.Chair;
+import com.zyx.library.entity.Chair;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface ChairService {
      * 获取所有座位
      * @return
      */
-    List<Chair> chair();
+    List<Chair> chairs();
 
     /**
      * 预约某个座位

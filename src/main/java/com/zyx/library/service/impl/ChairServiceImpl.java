@@ -1,9 +1,10 @@
 package com.zyx.library.service.impl;
 
 import com.zyx.library.dao.ChairMapper;
-import com.zyx.library.pojo.Chair;
+import com.zyx.library.entity.Chair;
 import com.zyx.library.service.ChairService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @Date ：Created in 9:45 2019/7/4
  * @Description：impletation class
  */
+@Service
 public class ChairServiceImpl implements ChairService {
 
     @Autowired
@@ -23,8 +25,8 @@ public class ChairServiceImpl implements ChairService {
      * @return
      */
     @Override
-    public List<Chair> chair() {
-        return null;
+    public List<Chair> chairs() {
+        return chairMapper.selectAll();
     }
 
     /**

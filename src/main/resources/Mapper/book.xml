@@ -24,9 +24,18 @@
 
     <!--借阅图书列表-->
     <select id="getBorrowInfo" resultType="BorrowDetail" parameterType="User">
-        select borrow_id, bname, btime, deadline, rtime
-        from borrow_detail
+        select borrow.borrow_id,
+               booklist.bname,
+               borrow.btime,
+               borrow.deadline,
+               borrow.rtime
+        from borrow,
+             booklist,
+             book
         where user_id = #{user.userId}
+          AND borrow.book_id = book.book_id
+          AND book.ISBN = booklist.ISBN
+
     </select>
 
     <!--还书-->
@@ -39,27 +48,49 @@
     <!--从试图中查询 -->
     <!--放到链接表中的ReservationDetail中-->
     <select id="getReservationList" resultType="ReservationDetail">
-        select reservation_id, bname, deadline, user_name, book_id from reservation_detail where user_id = #{user.userId};
+        select reservation_id, bname, deadline, user_name, book.book_id
+        from book_reservation,
+             book,
+             booklist,
+             reader
+        where reader.user_id = #{user.userId}
+          AND book_reservation.book_id = book.book_id
+          AND book_reservation.user_id = reader.user_id
+          AND book.ISBN = booklist.ISBN;
     </select>
 
     <!--剩余总量-->
     <select id="surplus" resultType="java.lang.Integer">
-        select sum(number) from booklist
+        select sum(number)
+        from booklist
     </select>
 
     <!--已预约图书-->
     <select id="bookedBooks" resultType="java.lang.Integer">
-        select count(*) from reservation_detail where user_id = #{user.userId}
+        select count(*)
+        from book_reservation
+        where user_id = #{user.userId}
     </select>
 
     <!--尚未还书-->
     <select id="unReturnedBooks" resultType="java.lang.Integer">
-        select count(*) from borrow where user_id = #{user.userId}
+        select count(*)
+        from borrow
+        where user_id = #{user.userId}
     </select>
 
     <!--最近借阅-->
     <select id="recentBorrow" resultType="com.zyx.library.entity.BorrowDetail">
-        select bname,deadline from borrow_detail where user_id = #{user.userId} and rtime is null ORDER BY btime DESC limit 4
+        select booklist.bname, borrow.deadline
+        from borrow,
+             booklist,
+             book
+        where user_id = #{user.userId}
+          AND borrow.book_id = book.book_id
+          AND book.ISBN = booklist.ISBN
+          AND rtime is null
+        ORDER BY btime DESC
+        limit 4
     </select>
 
 

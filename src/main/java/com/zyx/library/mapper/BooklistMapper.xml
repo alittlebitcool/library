@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyx.library.mapper.BooklistMapper" >
+  <resultMap id="BaseResultMap" type="com.zyx.library.pojo.Booklist" >
+    <id column="ISBN" property="isbn" jdbcType="VARCHAR" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="writer" property="writer" jdbcType="VARCHAR" />
+    <result column="ptime" property="ptime" jdbcType="DATE" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="borrow_num" property="borrowNum" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ISBN, bname, publisher, writer, ptime, number, borrow_num, price
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zyx.library.pojo.BooklistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from booklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from booklist
+    where ISBN = #{isbn,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from booklist
+    where ISBN = #{isbn,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zyx.library.pojo.BooklistExample" >
+    delete from booklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zyx.library.pojo.Booklist" >
+    insert into booklist (ISBN, bname, publisher, 
+      writer, ptime, number, 
+      borrow_num, price)
+    values (#{isbn,jdbcType=VARCHAR}, #{bname,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, 
+      #{writer,jdbcType=VARCHAR}, #{ptime,jdbcType=DATE}, #{number,jdbcType=INTEGER}, 
+      #{borrowNum,jdbcType=INTEGER}, #{price,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zyx.library.pojo.Booklist" >
+    insert into booklist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="isbn != null" >
+        ISBN,
+      </if>
+      <if test="bname != null" >
+        bname,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="writer != null" >
+        writer,
+      </if>
+      <if test="ptime != null" >
+        ptime,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="borrowNum != null" >
+        borrow_num,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="isbn != null" >
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="writer != null" >
+        #{writer,jdbcType=VARCHAR},
+      </if>
+      <if test="ptime != null" >
+        #{ptime,jdbcType=DATE},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="borrowNum != null" >
+        #{borrowNum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zyx.library.pojo.BooklistExample" resultType="java.lang.Integer" >
+    select count(*) from booklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update booklist
+    <set >
+      <if test="record.isbn != null" >
+        ISBN = #{record.isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bname != null" >
+        bname = #{record.bname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publisher != null" >
+        publisher = #{record.publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.writer != null" >
+        writer = #{record.writer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ptime != null" >
+        ptime = #{record.ptime,jdbcType=DATE},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowNum != null" >
+        borrow_num = #{record.borrowNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update booklist
+    set ISBN = #{record.isbn,jdbcType=VARCHAR},
+      bname = #{record.bname,jdbcType=VARCHAR},
+      publisher = #{record.publisher,jdbcType=VARCHAR},
+      writer = #{record.writer,jdbcType=VARCHAR},
+      ptime = #{record.ptime,jdbcType=DATE},
+      number = #{record.number,jdbcType=INTEGER},
+      borrow_num = #{record.borrowNum,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyx.library.pojo.Booklist" >
+    update booklist
+    <set >
+      <if test="bname != null" >
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="writer != null" >
+        writer = #{writer,jdbcType=VARCHAR},
+      </if>
+      <if test="ptime != null" >
+        ptime = #{ptime,jdbcType=DATE},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="borrowNum != null" >
+        borrow_num = #{borrowNum,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where ISBN = #{isbn,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zyx.library.pojo.Booklist" >
+    update booklist
+    set bname = #{bname,jdbcType=VARCHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      writer = #{writer,jdbcType=VARCHAR},
+      ptime = #{ptime,jdbcType=DATE},
+      number = #{number,jdbcType=INTEGER},
+      borrow_num = #{borrowNum,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE}
+    where ISBN = #{isbn,jdbcType=VARCHAR}
+  </update>
+</mapper>

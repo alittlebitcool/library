@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zyx.library.mapper.RoomMapper" >
-  <resultMap id="BaseResultMap" type="com.zyx.library.pojo.Room" >
-    <id column="room_id" property="roomId" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+<mapper namespace="com.zyx.library.mapper.ChairMapper" >
+  <resultMap id="BaseResultMap" type="com.zyx.library.pojo.Chair" >
+    <id column="chair_id" property="chairId" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    room_id, name
+    chair_id, state
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zyx.library.pojo.RoomExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zyx.library.pojo.ChairExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from room
+    from chair
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -83,56 +83,56 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from room
-    where room_id = #{roomId,jdbcType=INTEGER}
+    from chair
+    where chair_id = #{chairId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from room
-    where room_id = #{roomId,jdbcType=INTEGER}
+    delete from chair
+    where chair_id = #{chairId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.zyx.library.pojo.RoomExample" >
-    delete from room
+  <delete id="deleteByExample" parameterType="com.zyx.library.pojo.ChairExample" >
+    delete from chair
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.zyx.library.pojo.Room" >
-    insert into room (room_id, name)
-    values (#{roomId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.zyx.library.pojo.Chair" >
+    insert into chair (chair_id, state)
+    values (#{chairId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.zyx.library.pojo.Room" >
-    insert into room
+  <insert id="insertSelective" parameterType="com.zyx.library.pojo.Chair" >
+    insert into chair
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="roomId != null" >
-        room_id,
+      <if test="chairId != null" >
+        chair_id,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="state != null" >
+        state,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="roomId != null" >
-        #{roomId,jdbcType=INTEGER},
+      <if test="chairId != null" >
+        #{chairId,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.zyx.library.pojo.RoomExample" resultType="java.lang.Integer" >
-    select count(*) from room
+  <select id="countByExample" parameterType="com.zyx.library.pojo.ChairExample" resultType="java.lang.Integer" >
+    select count(*) from chair
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update room
+    update chair
     <set >
-      <if test="record.roomId != null" >
-        room_id = #{record.roomId,jdbcType=INTEGER},
+      <if test="record.chairId != null" >
+        chair_id = #{record.chairId,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -140,25 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update room
-    set room_id = #{record.roomId,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR}
+    update chair
+    set chair_id = #{record.chairId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zyx.library.pojo.Room" >
-    update room
+  <update id="updateByPrimaryKeySelective" parameterType="com.zyx.library.pojo.Chair" >
+    update chair
     <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
       </if>
     </set>
-    where room_id = #{roomId,jdbcType=INTEGER}
+    where chair_id = #{chairId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.zyx.library.pojo.Room" >
-    update room
-    set name = #{name,jdbcType=VARCHAR}
-    where room_id = #{roomId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.zyx.library.pojo.Chair" >
+    update chair
+    set state = #{state,jdbcType=INTEGER}
+    where chair_id = #{chairId,jdbcType=INTEGER}
   </update>
 </mapper>

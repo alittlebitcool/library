@@ -5,8 +5,6 @@ public class Chair {
 
     private Integer state;
 
-    private Integer roomId;
-
     public Integer getChairId() {
         return chairId;
     }
@@ -21,13 +19,5 @@ public class Chair {
 
     public void setState(Integer state) {
         this.state = state;
-    }
-
-    public Integer getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Integer roomId) {
-        this.roomId = roomId;
     }
 }
